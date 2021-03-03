@@ -19,13 +19,16 @@ function TodoList({ className }) {
       <section>
         <ul>
           {store.activeItems.map(item => (
-            <TodoListItem
-              key={item.id}
-              name={item.name}
-              isComplete={item.isComplete}
-              onComplete={() => store.setCompleted(item.id)}
-              onChange={e => store.setItemName(item.id, e.target.value)}
-            />
+            <>
+              <TodoListItem
+                key={item.id}
+                name={item.name}
+                isComplete={item.isComplete}
+                onComplete={() => store.setCompleted(item.id)}
+                onChange={e => store.setItemName(item.id, e.target.value)}
+              />
+              <Button text="Remove Item" onClick={() => store.removeItem(item.id)} />
+            </>
           ))}
         </ul>
         <Button text="Add New Item" onClick={store.addItem} />
@@ -34,7 +37,10 @@ function TodoList({ className }) {
         <h2 className="completedTitle">Completed Items</h2>
         <ul>
           {store.completedItems.map(item => (
-            <li key={item.id}>{item.name}</li>
+            <>
+              <li key={item.id}>{item.name}</li>
+              <Button text="Remove Item" onClick={() => store.removeItem(item.id)} />
+            </>
           ))}
         </ul>
       </footer>
@@ -64,6 +70,9 @@ function createTodoStore() {
         id: uuid(),
         name: `Item ${self.items.length}`,
       })
+    },
+    removeItem(idToRemove) {
+      self.items = self.items.filter(({ id }) => id !== idToRemove)
     },
     setItemName(id, name) {
       const item = self.items.find(i => i.id === id)

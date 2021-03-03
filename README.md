@@ -17,7 +17,8 @@ A simple TODO list exercise to demonstrate understanding of the following librar
 
 ## Requirements
 
-- [ ] Allow the user to remove items.
+- [x] Allow the user to remove items.
+      _Do we want to remove active items or completed items? Or both?_
 - [ ] Add some styling to the application.
   - Simple styling is fine; don't go overboard.
   - Try to add some transition/animation effects; nothing flashy, simple is better.
