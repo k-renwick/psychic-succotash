@@ -1,1 +1,1 @@
-export { default as TodoList } from '../src/components/TodoList';
+export { default as TodoList } from './components/TodoList'
