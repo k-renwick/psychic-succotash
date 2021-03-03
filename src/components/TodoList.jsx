@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import { observable } from 'mobx'
 import { v4 as uuid } from 'uuid'
-
+import Button from './Button'
 import TodoListItem from './TodoListItem'
 
 function TodoList({ className }) {
@@ -27,7 +27,7 @@ function TodoList({ className }) {
             />
           ))}
         </ul>
-        <button onClick={store.addItem}>Add New Item</button>
+        <Button text="Add New Item" onClick={store.addItem} />
       </section>
       <footer>
         <h2 className="completedTitle">Completed Items</h2>
