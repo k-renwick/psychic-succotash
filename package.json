@@ -33,7 +33,17 @@
       "prettier/prettier": [
         "error"
       ]
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.stories.jsx"
+        ],
+        "rules": {
+          "react/jsx-props-no-spreading": "off"
+        }
+      }
+    ]
   },
   "prettier": {
     "semi": false,
