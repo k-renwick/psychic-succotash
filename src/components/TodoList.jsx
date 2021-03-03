@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import { observable } from 'mobx'
@@ -74,6 +75,10 @@ function createTodoStore() {
   })
 
   return self
+}
+
+TodoList.propTypes = {
+  className: PropTypes.string.isRequired,
 }
 
 export default styled(observer(TodoList))`
