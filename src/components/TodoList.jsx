@@ -8,6 +8,7 @@ import Button from './Button'
 import TodoListItem from './TodoListItem'
 
 function TodoList({ className }) {
+  // eslint-disable-next-line no-use-before-define
   const [store] = useState(createTodoStore)
 
   return (

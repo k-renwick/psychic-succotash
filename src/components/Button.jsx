@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 function Button({ text, onClick, type, className }) {
   return (
+    // eslint-disable-next-line react/button-has-type
     <button className={className} type={type} onClick={onClick}>
       {text}
     </button>

@@ -19,30 +19,30 @@ A simple TODO list exercise to demonstrate understanding of the following librar
 
 - [ ] Allow the user to remove items.
 - [ ] Add some styling to the application.
-   - Simple styling is fine; don't go overboard.
-   - Try to add some transition/animation effects; nothing flashy, simple is better.
-   - We are looking for fundamental understanding of modern CSS, not a designer's eye.
+  - Simple styling is fine; don't go overboard.
+  - Try to add some transition/animation effects; nothing flashy, simple is better.
+  - We are looking for fundamental understanding of modern CSS, not a designer's eye.
 - [ ] Add an additional status of "in progress":
-   - instead of transitioning from incomplete -> complete, they must transition through this new state.
-   - the user needs to be allowed to also transition back from "in progress" to "incomplete".
-   - how the user will transition states is up to you; simple/obvious is fine
-   - how to show the status is up to you
+  - instead of transitioning from incomplete -> complete, they must transition through this new state.
+  - the user needs to be allowed to also transition back from "in progress" to "incomplete".
+  - how the user will transition states is up to you; simple/obvious is fine
+  - how to show the status is up to you
 - [ ] Allow the user to add and remove todo item "tags":
-   - _Example:_ if I create a todo item with the text "Contact candidates to explain the coding exercise", I might want to add a couple tags like "Hiring" and "Urgent".
-   - How this is interacted with and displayed is up to you.
+  - _Example:_ if I create a todo item with the text "Contact candidates to explain the coding exercise", I might want to add a couple tags like "Hiring" and "Urgent".
+  - How this is interacted with and displayed is up to you.
 - [ ] Allow all items to be filtered by "tags":
-   - Add an additional row of filter buttons to the footer, which contains the unique set of "tags" which have been added.
-   - Allow the user to click on an "tag" in this footer section to filter all of the incomplete, in progress and completed todos.
-   - _Continuation of previous example:_ once I've added "Urgent", and "Hiring" tags to one or more items, I should see two new filter buttons (one for "Urgent", one for "Hiring") and when I click one of these buttons it should filter the list of todos (complete, incomplete and in progress) to only those with the corresponding tag.
+  - Add an additional row of filter buttons to the footer, which contains the unique set of "tags" which have been added.
+  - Allow the user to click on an "tag" in this footer section to filter all of the incomplete, in progress and completed todos.
+  - _Continuation of previous example:_ once I've added "Urgent", and "Hiring" tags to one or more items, I should see two new filter buttons (one for "Urgent", one for "Hiring") and when I click one of these buttons it should filter the list of todos (complete, incomplete and in progress) to only those with the corresponding tag.
 - [ ] Under the "Completed Items", show a log of all "actions" taken. An "action" is any of the following:
-   - Item name updated (NOTE: only "completed" updates, not each character change)
-   - Item added
-   - Item removed
-   - Item status changed
-   - Tag added
-   - Tag removed
+  - Item name updated (NOTE: only "completed" updates, not each character change)
+  - Item added
+  - Item removed
+  - Item status changed
+  - Tag added
+  - Tag removed
 - [ ] Improve the maintainability of the code
-   - We're not looking for any specific style, but we're interested in how you think maintable code should look.
+  - We're not looking for any specific style, but we're interested in how you think maintable code should look.
 
 ## How to Use
 
