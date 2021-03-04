@@ -9,6 +9,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import Button from './Button'
 import TodoListItem from './TodoListItem'
 
+const STATUS = { TODO: 1, IN_PROGRESS: 2, COMPLETE: 3 }
+
 function TodoList({ className }) {
   // eslint-disable-next-line no-use-before-define
   const [store] = useState(createTodoStore)
@@ -19,13 +21,14 @@ function TodoList({ className }) {
         <h1 className="title">TODO List Example</h1>
       </header>
       <section>
+        <h2>To Do Items</h2>
         <ul>
-          {store.activeItems.map(item => (
+          {store.filterByStatus(STATUS.TODO).map(item => (
             <TodoListItem
               key={item.id}
               name={item.name}
-              isComplete={item.isComplete}
-              onComplete={() => store.setCompleted(item.id)}
+              status={item.status}
+              setStatus={status => store.setStatus(item.id, status)}
               onChange={e => store.setItemName(item.id, e.target.value)}
               onRemove={() => store.removeItem(item.id)}
             />
@@ -37,15 +40,32 @@ function TodoList({ className }) {
           />
         </ul>
       </section>
-      <footer>
-        <h2 className="completedTitle">Completed Items</h2>
+      <section>
+        <hr />
+        <h2>In Progress Items</h2>
         <ul>
-          {store.completedItems.map(item => (
+          {store.filterByStatus(STATUS.IN_PROGRESS).map(item => (
             <TodoListItem
               key={item.id}
               name={item.name}
-              isComplete={item.isComplete}
-              onComplete={() => store.setCompleted(item.id)}
+              status={item.status}
+              setStatus={status => store.setStatus(item.id, status)}
+              onChange={e => store.setItemName(item.id, e.target.value)}
+              onRemove={() => store.removeItem(item.id)}
+            />
+          ))}
+        </ul>
+      </section>
+      <footer>
+        <hr />
+        <h2>Complete Items</h2>
+        <ul>
+          {store.filterByStatus(STATUS.COMPLETE).map(item => (
+            <TodoListItem
+              key={item.id}
+              name={item.name}
+              status={item.status}
+              setStatus={status => store.setStatus(item.id, status)}
               onRemove={() => store.removeItem(item.id)}
             />
           ))}
@@ -58,36 +78,34 @@ function TodoList({ className }) {
 function createTodoStore() {
   const self = observable({
     items: [
-      {
-        id: uuid(),
-        name: 'Sample item',
-        isComplete: false,
-      },
+      { id: uuid(), name: 'Bread', status: STATUS.TODO },
+      { id: uuid(), name: 'Milk', status: STATUS.TODO },
+      { id: uuid(), name: 'Butter', status: STATUS.TODO },
+      { id: uuid(), name: 'Eggs', status: STATUS.IN_PROGRESS },
+      { id: uuid(), name: 'Bananas', status: STATUS.COMPLETE },
     ],
 
-    get activeItems() {
-      return self.items.filter(i => !i.isComplete)
-    },
-    get completedItems() {
-      return self.items.filter(i => i.isComplete)
+    filterByStatus(status) {
+      return self.items.filter(i => i.status === status)
     },
 
     addItem() {
       self.items.push({
         id: uuid(),
-        name: `Item ${self.items.length}`,
+        name: '',
+        status: STATUS.TODO,
       })
     },
-    removeItem(idToRemove) {
-      self.items = self.items.filter(({ id }) => id !== idToRemove)
+    removeItem(id) {
+      self.items = self.items.filter(i => i.id !== id)
     },
     setItemName(id, name) {
       const item = self.items.find(i => i.id === id)
       item.name = name
     },
-    setCompleted(id) {
+    setStatus(id, status) {
       const item = self.items.find(i => i.id === id)
-      item.isComplete = true
+      item.status = status
     },
   })
 

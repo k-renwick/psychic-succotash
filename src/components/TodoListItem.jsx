@@ -4,28 +4,67 @@ import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
-import { faTimes, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCheckSquare,
+  faTimes,
+  faArrowCircleUp,
+  faArrowCircleDown,
+} from '@fortawesome/free-solid-svg-icons'
 
-function TodoListItem({ name, isComplete, onChange, onRemove, onComplete, className }) {
+function TodoListItem({ name, status, setStatus, onChange, onRemove, className }) {
+  const isTodo = status === 1
+  const isInProgress = status === 2
+  const isComplete = status === 3
   return (
     <li className={`${className}${isComplete ? ' isComplete' : ''}`}>
+      {isComplete ? (
+        <FontAwesomeIcon
+          title="This item is complete"
+          icon={faCheckSquare}
+          className="complete-icon"
+        />
+      ) : (
+        <FontAwesomeIcon
+          title={`${isInProgress ? 'Click to complete item' : 'This item is not complete'}`}
+          onClick={() => isInProgress && setStatus(3)}
+          icon={faSquare}
+          className="complete-icon"
+        />
+      )}
+
+      <input onChange={onChange} value={name} disabled={isComplete} readOnly={!onChange} />
+
+      {isInProgress && (
+        <FontAwesomeIcon
+          title="Click to move item back to todo"
+          onClick={() => setStatus(1)}
+          icon={faArrowCircleUp}
+        />
+      )}
+      {isTodo && (
+        <FontAwesomeIcon
+          title="Click to move item to in progress"
+          onClick={() => setStatus(2)}
+          icon={faArrowCircleDown}
+        />
+      )}
+
       <FontAwesomeIcon
-        icon={isComplete ? faCheckSquare : faSquare}
-        className="complete-icon"
-        onClick={onComplete}
+        title="Click to remove item"
+        onClick={onRemove}
+        icon={faTimes}
+        className="remove-icon"
       />
-      <input onChange={onChange} value={name} disabled={isComplete} />
-      <FontAwesomeIcon icon={faTimes} onClick={onRemove} className="remove-icon" />
     </li>
   )
 }
 
 TodoListItem.propTypes = {
   name: PropTypes.string.isRequired,
-  isComplete: PropTypes.bool.isRequired,
+  status: PropTypes.oneOf([1, 2, 3]).isRequired,
   onChange: PropTypes.func,
   onRemove: PropTypes.func.isRequired,
-  onComplete: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
 }
 

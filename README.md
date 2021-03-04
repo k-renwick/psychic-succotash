@@ -23,7 +23,7 @@ A simple TODO list exercise to demonstrate understanding of the following librar
   - Simple styling is fine; don't go overboard.
   - Try to add some transition/animation effects; nothing flashy, simple is better.
   - We are looking for fundamental understanding of modern CSS, not a designer's eye.
-- [ ] Add an additional status of "in progress":
+- [x] Add an additional status of "in progress":
   - instead of transitioning from incomplete -> complete, they must transition through this new state.
   - the user needs to be allowed to also transition back from "in progress" to "incomplete".
   - how the user will transition states is up to you; simple/obvious is fine
