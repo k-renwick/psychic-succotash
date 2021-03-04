@@ -8,7 +8,7 @@ import { faTimes, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
 
 function TodoListItem({ name, isComplete, onChange, onRemove, onComplete, className }) {
   return (
-    <li className={className}>
+    <li className={`${className}${isComplete ? ' isComplete' : ''}`}>
       <FontAwesomeIcon
         icon={isComplete ? faCheckSquare : faSquare}
         className="complete-icon"
@@ -33,25 +33,16 @@ export default styled(observer(TodoListItem))`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 20rem;
+  width: 25rem;
   height: 1.4rem;
-  border-radius: 3px;
   margin: 2px;
   border: 1px solid;
-  background: ${props =>
-    !props.isComplete ? 'linear-gradient(to left, #530080 50%, #f6e7ff 50%) right' : '#cccccc'};
-  border-color: ${props => (!props.isComplete ? '#530080' : '##808080')};
-  color: ${props => (!props.isComplete ? '#ffffff' : '#808080')};
-
+  border-radius: 3px;
+  border-color: #530080;
+  background: linear-gradient(to left, #530080 50%, #f6e7ff 50%) right;
   background-size: 200%;
+  color: #ffffff;
   transition: 0.5s ease-out;
-  ${props =>
-    !props.isComplete &&
-    `:focus-within, :hover {
-        background-color: #f6e7ff;
-        color: #530080;
-        background-position: left;
-    }`}
 
   input {
     background-color: transparent;
@@ -65,9 +56,12 @@ export default styled(observer(TodoListItem))`
     height: -webkit-fill-available;
   }
 
-  .remove-icon {
+  svg {
     cursor: pointer;
-    ${props => !props.isComplete && 'color: #ff0000'};
+  }
+
+  .remove-icon {
+    color: #ff0000;
     :hover {
       transition: all 0.3s ease-out;
       color: #940404;
@@ -75,11 +69,28 @@ export default styled(observer(TodoListItem))`
   }
 
   .complete-icon {
-    cursor: pointer;
     color: #008000;
     :hover {
       transition: all 0.3s ease-out;
       color: #003e00;
+    }
+  }
+
+  &:not(.isComplete) {
+    :focus-within,
+    :hover {
+      background-color: #f6e7ff;
+      color: #530080;
+      background-position: left;
+    }
+  }
+
+  &.isComplete {
+    border-color: #808080;
+    background: #cccccc;
+    color: #808080;
+    svg {
+      color: #808080;
     }
   }
 `

@@ -99,7 +99,9 @@ TodoList.propTypes = {
 }
 
 export default styled(observer(TodoList))`
-  border: 1px solid black;
+  border: 1px solid #530080;
+  border-radius: 5px;
+  padding: 1rem;
 
   * {
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
