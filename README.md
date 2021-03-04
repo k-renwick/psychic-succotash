@@ -19,7 +19,7 @@ A simple TODO list exercise to demonstrate understanding of the following librar
 
 - [x] Allow the user to remove items.
       _Do we want to remove active items or completed items? Or both?_
-- [ ] Add some styling to the application.
+- [x] Add some styling to the application.
   - Simple styling is fine; don't go overboard.
   - Try to add some transition/animation effects; nothing flashy, simple is better.
   - We are looking for fundamental understanding of modern CSS, not a designer's eye.

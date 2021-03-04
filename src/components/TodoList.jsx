@@ -99,9 +99,25 @@ TodoList.propTypes = {
 }
 
 export default styled(observer(TodoList))`
-  background-color: lightgray;
+  border: 1px solid black;
 
+  * {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+  }
+
+  svg {
+    margin: 0 5px;
+  }
   .title {
-    color: orange;
+    color: #530080;
+    font-size: 1.5rem;
+  }
+  ul {
+    list-style-type: none;
+    padding-left: 10px;
+  }
+  button {
+    margin-top: 1rem;
   }
 `

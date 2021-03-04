@@ -25,5 +25,22 @@ Button.propTypes = {
 }
 
 export default styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+  height: 1.4rem;
+  border-radius: 3px;
+  margin: 2px;
+  border: 1px solid;
+  background-color: #ffffff;
+  border-color: #530080;
+  color: #530080;
+  outline: none;
   cursor: pointer;
+  :hover {
+    background-color: #530080;
+    color: #ffffff;
+    transition: all 0.3s ease-in-out;
+  }
 `
