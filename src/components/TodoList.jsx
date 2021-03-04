@@ -4,6 +4,8 @@ import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import { observable } from 'mobx'
 import { v4 as uuid } from 'uuid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import Button from './Button'
 import TodoListItem from './TodoListItem'
 
@@ -19,28 +21,33 @@ function TodoList({ className }) {
       <section>
         <ul>
           {store.activeItems.map(item => (
-            <>
-              <TodoListItem
-                key={item.id}
-                name={item.name}
-                isComplete={item.isComplete}
-                onComplete={() => store.setCompleted(item.id)}
-                onChange={e => store.setItemName(item.id, e.target.value)}
-              />
-              <Button text="Remove Item" onClick={() => store.removeItem(item.id)} />
-            </>
+            <TodoListItem
+              key={item.id}
+              name={item.name}
+              isComplete={item.isComplete}
+              onComplete={() => store.setCompleted(item.id)}
+              onChange={e => store.setItemName(item.id, e.target.value)}
+              onRemove={() => store.removeItem(item.id)}
+            />
           ))}
+          <Button
+            text="Add New Item"
+            icon={<FontAwesomeIcon icon={faPlus} />}
+            onClick={store.addItem}
+          />
         </ul>
-        <Button text="Add New Item" onClick={store.addItem} />
       </section>
       <footer>
         <h2 className="completedTitle">Completed Items</h2>
         <ul>
           {store.completedItems.map(item => (
-            <>
-              <li key={item.id}>{item.name}</li>
-              <Button text="Remove Item" onClick={() => store.removeItem(item.id)} />
-            </>
+            <TodoListItem
+              key={item.id}
+              name={item.name}
+              isComplete={item.isComplete}
+              onComplete={() => store.setCompleted(item.id)}
+              onRemove={() => store.removeItem(item.id)}
+            />
           ))}
         </ul>
       </footer>
