@@ -28,7 +28,7 @@ A simple TODO list exercise to demonstrate understanding of the following librar
   - the user needs to be allowed to also transition back from "in progress" to "incomplete".
   - how the user will transition states is up to you; simple/obvious is fine
   - how to show the status is up to you
-- [ ] Allow the user to add and remove todo item "tags":
+- [x] Allow the user to add and remove todo item "tags":
   - _Example:_ if I create a todo item with the text "Contact candidates to explain the coding exercise", I might want to add a couple tags like "Hiring" and "Urgent".
   - How this is interacted with and displayed is up to you.
 - [ ] Allow all items to be filtered by "tags":

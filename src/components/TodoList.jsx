@@ -27,8 +27,11 @@ function TodoList({ className }) {
             <TodoListItem
               key={item.id}
               name={item.name}
+              tags={item.tags}
               status={item.status}
               setStatus={status => store.setStatus(item.id, status)}
+              addTag={() => store.addTag(item.id)}
+              removeTag={content => store.removeTag(item.id, content)}
               onChange={e => store.setItemName(item.id, e.target.value)}
               onRemove={() => store.removeItem(item.id)}
             />
@@ -50,8 +53,11 @@ function TodoList({ className }) {
             <TodoListItem
               key={item.id}
               name={item.name}
+              tags={item.tags}
               status={item.status}
               setStatus={status => store.setStatus(item.id, status)}
+              addTag={() => store.addTag(item.id)}
+              removeTag={content => store.removeTag(item.id, content)}
               onChange={e => store.setItemName(item.id, e.target.value)}
               onRemove={() => store.removeItem(item.id)}
             />
@@ -66,8 +72,8 @@ function TodoList({ className }) {
             <TodoListItem
               key={item.id}
               name={item.name}
+              tags={item.tags}
               status={item.status}
-              setStatus={status => store.setStatus(item.id, status)}
               onRemove={() => store.removeItem(item.id)}
             />
           ))}
@@ -75,6 +81,11 @@ function TodoList({ className }) {
       </footer>
     </div>
   )
+}
+
+function getRandomColour() {
+  const colours = ['#ff0000', '#ff8300', '#ffd000', '	#00a70d', '#000dff']
+  return colours[Math.floor(Math.random() * 5)]
 }
 
 function createTodoStore() {
@@ -97,6 +108,7 @@ function createTodoStore() {
         id: uuid(),
         name: '',
         status: STATUS.TODO,
+        tags: [],
       })
     },
 
@@ -112,6 +124,29 @@ function createTodoStore() {
     setStatus(id, status) {
       const item = self.items.find(i => i.id === id)
       item.status = status
+    },
+
+    /* eslint-disable no-alert */
+    addTag(id) {
+      const content = prompt('Please enter a value for the new tag')
+      let error = null
+      let tagColor
+      self.items.forEach(i => {
+        const matchingTag = i.tags.find(t => t.content === content)
+        if (matchingTag) tagColor = matchingTag.color
+        if (matchingTag && i.id === id) error = "You've already added this tag here"
+      })
+      if (error) alert(error)
+      else {
+        const item = self.items.find(i => i.id === id)
+        item.tags.push({ content, color: tagColor || getRandomColour() })
+      }
+    },
+    /* eslint-enable no-alert */
+
+    removeTag(id, content) {
+      const item = self.items.find(i => i.id === id)
+      item.tags = item.tags.filter(t => t.content !== content)
     },
   })
 
@@ -145,10 +180,7 @@ export default styled(observer(TodoList))`
   }
   .add-button {
     margin-top: 1rem;
-    :hover {
-      background-color: #530080;
-      color: #ffffff;
-      transition: all 0.3s ease-in-out;
-    }
+    height: 1.4rem;
+    border-radius: 3px;
   }
 `

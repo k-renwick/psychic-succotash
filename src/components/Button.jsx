@@ -44,7 +44,10 @@ export default styled(Button)`
       color: #ffffff;
       transition: all 0.3s ease-in-out;
     }
-    height: 1.4rem;
-    border-radius: 3px;
+    :active {
+      background-color: #272727;
+      border-color: #272727;
+      color: #ffffff;
+    }
     `}
 `

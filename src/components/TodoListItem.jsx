@@ -9,9 +9,22 @@ import {
   faTimes,
   faArrowUp,
   faArrowDown,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons'
+import Tag from './Tag'
+import Button from './Button'
 
-function TodoListItem({ name, status, setStatus, onChange, onRemove, className }) {
+function TodoListItem({
+  name,
+  status,
+  tags,
+  setStatus,
+  addTag,
+  removeTag,
+  onChange,
+  onRemove,
+  className,
+}) {
   const isTodo = status === 1
   const isInProgress = status === 2
   const isComplete = status === 3
@@ -34,6 +47,23 @@ function TodoListItem({ name, status, setStatus, onChange, onRemove, className }
       )}
 
       <input onChange={onChange} value={name} disabled={isComplete} readOnly={!onChange} />
+
+      {tags &&
+        tags.map(tag => (
+          <Tag
+            key={tag.content}
+            color={tag.color}
+            onClick={() => removeTag && removeTag(tag.content)}
+          >
+            {tag.content}
+          </Tag>
+        ))}
+
+      {addTag && (
+        <Button title="Click to add a tag" onClick={addTag} className="add-tag-button">
+          <FontAwesomeIcon icon={faPlus} />
+        </Button>
+      )}
 
       {isInProgress && (
         <FontAwesomeIcon
@@ -65,7 +95,15 @@ TodoListItem.propTypes = {
   status: PropTypes.oneOf([1, 2, 3]).isRequired,
   onChange: PropTypes.func,
   onRemove: PropTypes.func.isRequired,
-  setStatus: PropTypes.func.isRequired,
+  setStatus: PropTypes.func,
+  addTag: PropTypes.func,
+  removeTag: PropTypes.func,
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      content: PropTypes.string,
+      color: PropTypes.string,
+    })
+  ),
   className: PropTypes.string.isRequired,
 }
 
