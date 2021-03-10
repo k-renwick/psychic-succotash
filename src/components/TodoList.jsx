@@ -107,11 +107,51 @@ function getRandomColour() {
 function createTodoStore() {
   const self = observable({
     items: [
-      { id: uuid(), name: 'Bread', status: STATUS.TODO },
-      { id: uuid(), name: 'Milk', status: STATUS.TODO },
-      { id: uuid(), name: 'Butter', status: STATUS.TODO },
-      { id: uuid(), name: 'Eggs', status: STATUS.IN_PROGRESS },
-      { id: uuid(), name: 'Bananas', status: STATUS.COMPLETE },
+      {
+        id: uuid(),
+        name: 'Apply online',
+        status: STATUS.COMPLETE,
+        tags: [
+          { content: 'Hiring', color: '#ffd000' },
+          { content: 'First', color: '#00a70d' },
+        ],
+      },
+      {
+        id: uuid(),
+        name: 'Phone interview with HR',
+        status: STATUS.COMPLETE,
+        tags: [{ content: 'Hiring', color: '#ffd000' }],
+      },
+      {
+        id: uuid(),
+        name: 'In person interview with hiring manager',
+        status: STATUS.COMPLETE,
+        tags: [{ content: 'Hiring', color: '#ffd000' }],
+      },
+      {
+        id: uuid(),
+        name: 'Task',
+        status: STATUS.IN_PROGRESS,
+        tags: [{ content: 'Hiring', color: '#ffd000' }],
+      },
+      {
+        id: uuid(),
+        name: 'Presentation of task',
+        status: STATUS.TODO,
+        tags: [{ content: 'Hiring', color: '#ffd000' }],
+      },
+      {
+        id: uuid(),
+        name: 'References',
+        status: STATUS.TODO,
+        tags: [{ content: 'Hiring', color: '#ffd000' }],
+      },
+      {
+        id: uuid(),
+        name: 'Offer',
+        status: STATUS.TODO,
+        tags: [{ content: 'Hiring', color: '#ffd000' }],
+      },
     ],
 
     filterByStatus(status) {
@@ -196,17 +236,27 @@ export default styled(observer(TodoList))`
   svg {
     margin: 0 3px;
   }
+
   .title {
     color: #530080;
     font-size: 1.5rem;
   }
+
   ul {
     list-style-type: none;
     padding-left: 10px;
   }
+
   .add-button {
     margin-top: 1rem;
     height: 1.4rem;
     border-radius: 3px;
+  }
+
+  .filters {
+    display: flex;
+    button {
+      border-radius: 15px;
+    }
   }
 `
