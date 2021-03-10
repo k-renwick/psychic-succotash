@@ -53,6 +53,7 @@ function TodoListItem({
           <Tag
             key={tag.content}
             color={tag.color}
+            title="Click to remove this tag"
             onClick={() => removeTag && removeTag(tag.content)}
           >
             {tag.content}
