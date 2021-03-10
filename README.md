@@ -42,7 +42,7 @@ A simple TODO list exercise to demonstrate understanding of the following librar
   - Item status changed
   - Tag added
   - Tag removed
-- [ ] Improve the maintainability of the code
+- [x] Improve the maintainability of the code
   - We're not looking for any specific style, but we're interested in how you think maintable code should look.
 
 ## How to Use
