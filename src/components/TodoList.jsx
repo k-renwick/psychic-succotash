@@ -34,10 +34,12 @@ function TodoList({ className }) {
             />
           ))}
           <Button
-            text="Add New Item"
-            icon={<FontAwesomeIcon icon={faPlus} />}
+            title="Click to add a new item to the todo list"
+            className="add-button"
             onClick={store.addItem}
-          />
+          >
+            Add New Item <FontAwesomeIcon icon={faPlus} />
+          </Button>
         </ul>
       </section>
       <section>
@@ -89,6 +91,7 @@ function createTodoStore() {
       return self.items.filter(i => i.status === status)
     },
 
+
     addItem() {
       self.items.push({
         id: uuid(),
@@ -96,13 +99,16 @@ function createTodoStore() {
         status: STATUS.TODO,
       })
     },
+
     removeItem(id) {
       self.items = self.items.filter(i => i.id !== id)
     },
+
     setItemName(id, name) {
       const item = self.items.find(i => i.id === id)
       item.name = name
     },
+
     setStatus(id, status) {
       const item = self.items.find(i => i.id === id)
       item.status = status
@@ -127,7 +133,7 @@ export default styled(observer(TodoList))`
   }
 
   svg {
-    margin: 0 5px;
+    margin: 0 3px;
   }
   .title {
     color: #530080;
@@ -137,7 +143,12 @@ export default styled(observer(TodoList))`
     list-style-type: none;
     padding-left: 10px;
   }
-  button {
+  .add-button {
     margin-top: 1rem;
+    :hover {
+      background-color: #530080;
+      color: #ffffff;
+      transition: all 0.3s ease-in-out;
+    }
   }
 `

@@ -7,14 +7,15 @@ import { faSquare } from '@fortawesome/free-regular-svg-icons'
 import {
   faCheckSquare,
   faTimes,
-  faArrowCircleUp,
-  faArrowCircleDown,
+  faArrowUp,
+  faArrowDown,
 } from '@fortawesome/free-solid-svg-icons'
 
 function TodoListItem({ name, status, setStatus, onChange, onRemove, className }) {
   const isTodo = status === 1
   const isInProgress = status === 2
   const isComplete = status === 3
+
   return (
     <li className={`${className}${isComplete ? ' isComplete' : ''}`}>
       {isComplete ? (
@@ -38,14 +39,14 @@ function TodoListItem({ name, status, setStatus, onChange, onRemove, className }
         <FontAwesomeIcon
           title="Click to move item back to todo"
           onClick={() => setStatus(1)}
-          icon={faArrowCircleUp}
+          icon={faArrowUp}
         />
       )}
       {isTodo && (
         <FontAwesomeIcon
           title="Click to move item to in progress"
           onClick={() => setStatus(2)}
-          icon={faArrowCircleDown}
+          icon={faArrowDown}
         />
       )}
 
@@ -72,9 +73,10 @@ export default styled(observer(TodoListItem))`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 25rem;
+  width: 20rem;
   height: 1.4rem;
   margin: 2px;
+  padding: 0 3px;
   border: 1px solid;
   border-radius: 3px;
   border-color: #530080;
@@ -88,11 +90,23 @@ export default styled(observer(TodoListItem))`
     border: none;
     outline: none;
     padding: 0;
+    margin: 0 3px;
     display: flex;
     align-items: center;
     color: inherit;
     width: -webkit-fill-available;
+    min-width: 4rem;
     height: -webkit-fill-available;
+  }
+
+  .add-tag-button {
+    height: 1rem;
+    border-radius: 10px;
+    padding: 0 3px;
+    svg {
+      font-size: 0.6rem;
+      margin: 0;
+    }
   }
 
   svg {

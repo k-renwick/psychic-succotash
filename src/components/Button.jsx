@@ -2,12 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-function Button({ text, onClick, type, icon, className }) {
+function Button({ onClick, children, type, title, className }) {
   return (
     // eslint-disable-next-line react/button-has-type
-    <button className={className} type={type} onClick={onClick}>
-      {text}
-      {icon}
+    <button className={className} type={type} onClick={onClick} title={title}>
+      {children}
     </button>
   )
 }
@@ -17,10 +16,12 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
-  text: PropTypes.string,
   onClick: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/no-unused-prop-types
+  color: PropTypes.string,
+  children: PropTypes.node,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
-  icon: PropTypes.node,
+  title: PropTypes.string,
   className: PropTypes.string.isRequired,
 }
 
@@ -29,18 +30,21 @@ export default styled(Button)`
   align-items: center;
   justify-content: space-between;
   width: fit-content;
-  height: 1.4rem;
-  border-radius: 3px;
   margin: 2px;
   border: 1px solid;
   background-color: #ffffff;
-  border-color: #530080;
-  color: #530080;
+  border-color: ${props => props.color || '#530080'};
+  color: ${props => props.color || '#530080'};
   outline: none;
-  cursor: pointer;
-  :hover {
-    background-color: #530080;
-    color: #ffffff;
-    transition: all 0.3s ease-in-out;
-  }
+  ${props =>
+    props.onClick &&
+    `cursor: pointer;
+    :hover {
+      background-color: ${props.color || '#530080'};
+      color: #ffffff;
+      transition: all 0.3s ease-in-out;
+    }
+    height: 1.4rem;
+    border-radius: 3px;
+    `}
 `
