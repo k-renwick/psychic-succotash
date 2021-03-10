@@ -78,13 +78,29 @@ function TodoList({ className }) {
             />
           ))}
         </ul>
+        <section>
+          <hr />
+          <h2>Filter by Tag</h2>
+          <div className="filters">
+            {store.getUniqueTags().map(tag => (
+              <Button
+                key={tag.content}
+                color={tag.color}
+                title="Click to filter by this tag"
+                onClick={() => alert('filtering... :P')}
+              >
+                {tag.content}
+              </Button>
+            ))}
+          </div>
+        </section>
       </footer>
     </div>
   )
 }
 
 function getRandomColour() {
-  const colours = ['#ff0000', '#ff8300', '#ffd000', '	#00a70d', '#000dff']
+  const colours = ['#ff0000', '#ff8300', '#ffd000', '#00a70d', '#000dff']
   return colours[Math.floor(Math.random() * 5)]
 }
 
@@ -147,6 +163,16 @@ function createTodoStore() {
     removeTag(id, content) {
       const item = self.items.find(i => i.id === id)
       item.tags = item.tags.filter(t => t.content !== content)
+    },
+
+    getUniqueTags() {
+      const uniqueTags = []
+      self.items.forEach(item =>
+        item.tags.forEach(tag => {
+          if (!uniqueTags.find(t => t.content === tag.content)) uniqueTags.push(tag)
+        })
+      )
+      return uniqueTags
     },
   })
 
