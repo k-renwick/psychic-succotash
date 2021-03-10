@@ -35,7 +35,7 @@ A simple TODO list exercise to demonstrate understanding of the following librar
   - Add an additional row of filter buttons to the footer, which contains the unique set of "tags" which have been added.
   - Allow the user to click on a "tag" in this footer section to filter all of the incomplete, in progress and completed todos.
   - _Continuation of previous example:_ once I've added "Urgent", and "Hiring" tags to one or more items, I should see two new filter buttons (one for "Urgent", one for "Hiring") and when I click one of these buttons it should filter the list of todos (complete, incomplete and in progress) to only those with the corresponding tag.
-- [ ] Under the "Completed Items", show a log of all "actions" taken. An "action" is any of the following:
+- [x] Under the "Completed Items", show a log of all "actions" taken. An "action" is any of the following:
   - Item name updated (NOTE: only "completed" updates, not each character change)
   - Item added
   - Item removed

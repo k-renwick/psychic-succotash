@@ -29,11 +29,12 @@ function TodoList({ className }) {
               name={item.name}
               tags={item.tags}
               status={item.status}
-              setStatus={status => store.setStatus(item.id, status)}
-              addTag={() => store.addTag(item.id)}
-              removeTag={content => store.removeTag(item.id, content)}
-              onChange={e => store.setItemName(item.id, e.target.value)}
-              onRemove={() => store.removeItem(item.id)}
+              setStatus={status => store.setStatus(item, status)}
+              addTag={() => store.addTag(item)}
+              removeTag={content => store.removeTag(item, content)}
+              onChange={e => store.setItemName(item, e.target.value)}
+              onBlur={e => store.addActionLog(`Changed the name of an item to "${e.target.value}"`)}
+              onRemove={() => store.removeItem(item)}
             />
           ))}
           <Button
@@ -55,11 +56,12 @@ function TodoList({ className }) {
               name={item.name}
               tags={item.tags}
               status={item.status}
-              setStatus={status => store.setStatus(item.id, status)}
-              addTag={() => store.addTag(item.id)}
-              removeTag={content => store.removeTag(item.id, content)}
-              onChange={e => store.setItemName(item.id, e.target.value)}
-              onRemove={() => store.removeItem(item.id)}
+              setStatus={status => store.setStatus(item, status)}
+              addTag={() => store.addTag(item)}
+              removeTag={content => store.removeTag(item, content)}
+              onChange={e => store.setItemName(item, e.target.value)}
+              onBlur={e => store.addActionLog(`Changed the name of an item to "${e.target.value}"`)}
+              onRemove={() => store.removeItem(item)}
             />
           ))}
         </ul>
@@ -74,10 +76,17 @@ function TodoList({ className }) {
               name={item.name}
               tags={item.tags}
               status={item.status}
-              onRemove={() => store.removeItem(item.id)}
+              onRemove={() => store.removeItem(item)}
             />
           ))}
         </ul>
+        <section>
+          <hr />
+          <h2>Action Log</h2>
+          {store.actionLogs.map(action => (
+            <div>{action}</div>
+          ))}
+        </section>
         <section>
           <hr />
           <h2>Filter by Tag</h2>
@@ -157,6 +166,13 @@ function createTodoStore() {
 
     tagFilter: null,
 
+    actionLogs: [],
+
+    addActionLog(action) {
+      const time = new Date().toLocaleTimeString('en-ca')
+      self.actionLogs.push(`${time} | ${action}`)
+    },
+
     setTagFilter(content) {
       if (self.tagFilter === content) self.tagFilter = null
       else self.tagFilter = content
@@ -170,6 +186,7 @@ function createTodoStore() {
     },
 
     addItem() {
+      self.addActionLog('Added a new item')
       self.items.push({
         id: uuid(),
         name: '',
@@ -178,41 +195,45 @@ function createTodoStore() {
       })
     },
 
-    removeItem(id) {
-      self.items = self.items.filter(i => i.id !== id)
+    removeItem(item) {
+      self.addActionLog(`Removed item "${item.name}"`)
+      self.items = self.items.filter(i => i.id !== item.id)
     },
 
-    setItemName(id, name) {
-      const item = self.items.find(i => i.id === id)
-      item.name = name
+    setItemName(item, name) {
+      self.items.find(i => i.id === item.id).name = name
     },
 
-    setStatus(id, status) {
-      const item = self.items.find(i => i.id === id)
-      item.status = status
+    setStatus(item, status) {
+      self.addActionLog(`Changed the status of item "${item.name}"`)
+      self.items.find(i => i.id === item.id).status = status
     },
 
-    addTag(id) {
-      /* eslint-disable no-alert */
+    addTag(item) {
+      // eslint-disable-next-line no-alert
       const content = prompt('Please enter a value for the new tag')
       let error = null
       let tagColor
       self.items.forEach(i => {
         const matchingTag = i.tags.find(t => t.content === content)
         if (matchingTag) tagColor = matchingTag.color
-        if (matchingTag && i.id === id) error = "You've already added this tag here"
+        if (matchingTag && i.id === item.id) error = "You've already added this tag here"
       })
-      if (error) alert(error)
-      else {
-        const item = self.items.find(i => i.id === id)
-        item.tags.push({ content, color: tagColor || getRandomColour() })
+      if (error) {
+        self.addActionLog(`Failed to add tag "${content}" to "${item.name}"`)
+        // eslint-disable-next-line no-alert
+        alert(error)
+      } else {
+        self.addActionLog(`Added tag "${content}" to "${item.name}"`)
+        self.items
+          .find(i => i.id === item.id)
+          .tags.push({ content, color: tagColor || getRandomColour() })
       }
-      /* eslint-enable no-alert */
     },
 
-    removeTag(id, content) {
-      const item = self.items.find(i => i.id === id)
-      item.tags = item.tags.filter(t => t.content !== content)
+    removeTag(item, content) {
+      self.addActionLog(`Removed tag "${content}" from item "${item.name}"`)
+      self.items.find(i => i.id === item.id).tags = item.tags.filter(t => t.content !== content)
     },
 
     getUniqueTags() {

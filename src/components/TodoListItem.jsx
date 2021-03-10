@@ -22,6 +22,7 @@ function TodoListItem({
   addTag,
   removeTag,
   onChange,
+  onBlur,
   onRemove,
   className,
 }) {
@@ -46,7 +47,13 @@ function TodoListItem({
         />
       )}
 
-      <input onChange={onChange} value={name} disabled={isComplete} readOnly={!onChange} />
+      <input
+        onChange={onChange}
+        onBlur={onBlur}
+        value={name}
+        disabled={isComplete}
+        readOnly={!onChange}
+      />
 
       {tags &&
         tags.map(tag => (
@@ -95,6 +102,7 @@ TodoListItem.propTypes = {
   name: PropTypes.string.isRequired,
   status: PropTypes.oneOf([1, 2, 3]).isRequired,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
   onRemove: PropTypes.func.isRequired,
   setStatus: PropTypes.func,
   addTag: PropTypes.func,
