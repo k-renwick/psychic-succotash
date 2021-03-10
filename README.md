@@ -31,7 +31,7 @@ A simple TODO list exercise to demonstrate understanding of the following librar
 - [x] Allow the user to add and remove todo item "tags":
   - _Example:_ if I create a todo item with the text "Contact candidates to explain the coding exercise", I might want to add a couple tags like "Hiring" and "Urgent".
   - How this is interacted with and displayed is up to you.
-- [ ] Allow all items to be filtered by "tags":
+- [x] Allow all items to be filtered by "tags":
   - Add an additional row of filter buttons to the footer, which contains the unique set of "tags" which have been added.
   - Allow the user to click on a "tag" in this footer section to filter all of the incomplete, in progress and completed todos.
   - _Continuation of previous example:_ once I've added "Urgent", and "Hiring" tags to one or more items, I should see two new filter buttons (one for "Urgent", one for "Hiring") and when I click one of these buttons it should filter the list of todos (complete, incomplete and in progress) to only those with the corresponding tag.

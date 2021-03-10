@@ -2,10 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-function Button({ onClick, children, type, title, className }) {
+function Button({ onClick, children, type, title, isActive, className }) {
   return (
-    // eslint-disable-next-line react/button-has-type
-    <button className={className} type={type} onClick={onClick} title={title}>
+    <button
+      className={`${className}${isActive ? ' active' : ''}`}
+      // eslint-disable-next-line react/button-has-type
+      type={type}
+      onClick={onClick}
+      title={title}
+    >
       {children}
     </button>
   )
@@ -22,6 +27,7 @@ Button.propTypes = {
   children: PropTypes.node,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   title: PropTypes.string,
+  isActive: PropTypes.bool,
   className: PropTypes.string.isRequired,
 }
 
@@ -36,18 +42,11 @@ export default styled(Button)`
   border-color: ${props => props.color || '#530080'};
   color: ${props => props.color || '#530080'};
   outline: none;
-  ${props =>
-    props.onClick &&
-    `cursor: pointer;
-    :hover {
-      background-color: ${props.color || '#530080'};
-      color: #ffffff;
-      transition: all 0.3s ease-in-out;
-    }
-    :active {
-      background-color: #272727;
-      border-color: #272727;
-      color: #ffffff;
-    }
-    `}
+  cursor: pointer;
+  :hover,
+  &.active {
+    background-color: ${props => props.color || '#530080'};
+    color: #ffffff;
+    transition: all 0.3s ease-in-out;
+  }
 `

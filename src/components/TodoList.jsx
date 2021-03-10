@@ -23,7 +23,7 @@ function TodoList({ className }) {
       <section>
         <h2>To Do Items</h2>
         <ul>
-          {store.filterByStatus(STATUS.TODO).map(item => (
+          {store.filter({ status: STATUS.TODO }).map(item => (
             <TodoListItem
               key={item.id}
               name={item.name}
@@ -49,7 +49,7 @@ function TodoList({ className }) {
         <hr />
         <h2>In Progress Items</h2>
         <ul>
-          {store.filterByStatus(STATUS.IN_PROGRESS).map(item => (
+          {store.filter({ status: STATUS.IN_PROGRESS }).map(item => (
             <TodoListItem
               key={item.id}
               name={item.name}
@@ -68,7 +68,7 @@ function TodoList({ className }) {
         <hr />
         <h2>Complete Items</h2>
         <ul>
-          {store.filterByStatus(STATUS.COMPLETE).map(item => (
+          {store.filter({ status: STATUS.COMPLETE }).map(item => (
             <TodoListItem
               key={item.id}
               name={item.name}
@@ -86,8 +86,9 @@ function TodoList({ className }) {
               <Button
                 key={tag.content}
                 color={tag.color}
+                isActive={store.tagFilter === tag.content}
                 title="Click to filter by this tag"
-                onClick={() => alert('filtering... :P')}
+                onClick={() => store.setTagFilter(tag.content)}
               >
                 {tag.content}
               </Button>
@@ -154,10 +155,19 @@ function createTodoStore() {
       },
     ],
 
-    filterByStatus(status) {
-      return self.items.filter(i => i.status === status)
+    tagFilter: null,
+
+    setTagFilter(content) {
+      if (self.tagFilter === content) self.tagFilter = null
+      else self.tagFilter = content
     },
 
+    filter({ status, tag = self.tagFilter }) {
+      let filteredItems = self.items
+      if (status) filteredItems = filteredItems.filter(i => i.status === status)
+      if (tag) filteredItems = filteredItems.filter(i => i.tags.find(t => t.content === tag))
+      return filteredItems
+    },
 
     addItem() {
       self.items.push({
@@ -182,8 +192,8 @@ function createTodoStore() {
       item.status = status
     },
 
-    /* eslint-disable no-alert */
     addTag(id) {
+      /* eslint-disable no-alert */
       const content = prompt('Please enter a value for the new tag')
       let error = null
       let tagColor
@@ -197,8 +207,8 @@ function createTodoStore() {
         const item = self.items.find(i => i.id === id)
         item.tags.push({ content, color: tagColor || getRandomColour() })
       }
+      /* eslint-enable no-alert */
     },
-    /* eslint-enable no-alert */
 
     removeTag(id, content) {
       const item = self.items.find(i => i.id === id)
